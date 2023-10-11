@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/monitoring.css' %}" />
+
+    <title>Monitoring</title>
+  </head>
+
+  <body>
+    {% csrf_token %}
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <!-- All svg's are stored here -->
+      <symbol xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <!--Logo Home-->
+        <symbol
+          xmlns="http://www.w3.org/2000/svg"
+          id="Home"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M10.698 2.799a2 2 0 012.604 0l6.336 5.43 2.487 1.99a1 1 0 11-1.25 1.562l-.875-.7V19a2 2 0 01-2 2h-4v-5a2 2 0 10-4 0v5H6a2 2 0 01-2-2v-7.92l-.875.7a1 1 0 11-1.25-1.56l2.487-1.99 6.336-5.431z"
+            fill="white"
+          />
+        </symbol>
+        <!--Logo Setting-->
+        <symbol
+          xmlns="http://www.w3.org/2000/svg"
+          id="Setting"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <path d="m0 0h24v24h-24z" fill="none" />
+          <path
+            fill="white"
+            d="m19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22l-1.91 3.32c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zm-7.14 2.66c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"
+          />
+        </symbol>
+        <!--Logo User-->
+        <symbol
+          xmlns="http://www.w3.org/2000/svg"
+          id="User"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g fill="#fff">
+            <path
+              d="m12 12c2.7614 0 5-2.23858 5-5s-2.2386-5-5-5c-2.76142 0-5 2.23858-5 5s2.23858 5 5 5z"
+            />
+            <path
+              d="m12.0002 14.5c-5.01004 0-9.09004 3.36-9.09004 7.5 0 .28.22.5.5.5h17.18004c.28 0 .5-.22.5-.5 0-4.14-4.08-7.5-9.09-7.5z"
+            />
+          </g>
+        </symbol>
+        <!-- Plus SVG -->
+        <symbol
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          viewBox="2 2 28 28"
+          id="plus-icon"
+        >
+          <path
+            d="M 16 2 C 8.272000312805176 2 2 8.272000312805176 2 16 C 2 23.72800064086914 8.272000312805176 30 16 30 C 23.72800064086914 30 30 23.72800064086914 30 16 C 30 8.271999359130859 23.72800064086914 2 16 2 Z M 23 17.39999961853027 L 17.39999961853027 17.39999961853027 L 17.39999961853027 23 L 14.59999847412109 23 L 14.59999847412109 17.39999961853027 L 9 17.39999961853027 L 9 14.59999847412109 L 14.59999847412109 14.59999847412109 L 14.59999847412109 9 L 17.39999961853027 9 L 17.39999961853027 14.59999847412109 L 23 14.59999847412109 L 23 17.39999961853027 Z"
+          />
+        </symbol>
+
+        <!-- Minus SVG -->
+        <symbol
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="none"
+          viewBox="2 2 28 28"
+          id="min-icon"
+        >
+          <path
+            d="M 16 2 C 8.272000312805176 2 2 8.272000312805176 2 16 C 2 23.72800064086914 8.272000312805176 30 16 30 C 23.72800064086914 30 30 23.72800064086914 30 16 C 30 8.271999359130859 23.72800064086914 2 16 2 Z M 23 17.39999961853027 L 9 17.39999961853027 L 9 14.59999942779541 L 23 14.59999942779541 L 23 17.39999961853027 Z"
+          />
+        </symbol>
+      </symbol>
+    </svg>
+    <!-- The end of stored svgs -->
+
+    <!-- Content Start Here -->
+    <!-- monitoring Controller Start Here -->
+    <div
+      class="container-fluid p-4 border-green rounded-bottom-4 d-grid gap-3 monitoring-container"
+    >
+      <!-- monitoring Mode Control Container -->
+      <div
+        class="grid-item rounded-4 control-container"
+        id="monitoring-mode-control-container"
+      >
+        <!-- monitoring Mode Text -->
+        <div class="row mt-1">
+          <div class="d-flex justify-content-center align-items-center">
+            <span class="fs-2 fw-bold my-1">Setting | Monitorings</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- monitoring upper Control Container -->
+      <div
+        class="grid-item rounded-4 p-3 py-1 control-container"
+        id="monitoring-upper-control-container"
+      >
+        <!-- vibration upper and lower Control Container -->
+        <div class="row mt-1">
+          <div
+            class="d-grid gap-1 upper-and-lower"
+            id="vibration-upper-and-lower"
+          >
+            <!-- Vibration Text -->
+            <div class="grid-item d-flex align-items-center mx-3">
+              <span class="fs-4 fw-bold">Vibration</span>
+            </div>
+            <div class="grid-item">
+              <span class="mx-3 fs-5">Upper Bound</span>
+            </div>
+            <div class="grid-item">
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="vibration-upper-min"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#min-icon" />
+                  </svg>
+                </div>
+                <span
+                  class="w-100 border border-black border-1 rounded-pill text-center fw-bold"
+                  id="vibration-upper"
+                  >1000</span
+                >
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="vibration-upper-plus"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#plus-icon" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item">
+              <span class="mx-3 fs-5">Lower Bound</span>
+            </div>
+            <div class="grid-item">
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="vibration-lower-min"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#min-icon" />
+                  </svg>
+                </div>
+                <span
+                  class="w-100 border border-black border-1 rounded-pill text-center fw-bold"
+                  id="vibration-lower"
+                  >0</span
+                >
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="vibration-lower-plus"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#plus-icon" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="d-grid gap-1 upper-and-lower"
+            id="current-upper-and-lower"
+          >
+            <!-- Current Text -->
+            <div class="grid-item d-flex align-items-center mx-3">
+              <span class="fs-4 fw-bold">Current</span>
+            </div>
+            <div class="grid-item">
+              <span class="mx-3 fs-5">Upper Bound</span>
+            </div>
+            <div class="grid-item">
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="current-upper-min"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#min-icon" />
+                  </svg>
+                </div>
+                <span
+                  class="w-100 border border-black border-1 rounded-pill text-center fw-bold"
+                  id="current-upper"
+                  >1000</span
+                >
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="current-upper-plus"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#plus-icon" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item">
+              <span class="mx-3 fs-5">Lower Bound</span>
+            </div>
+            <div class="grid-item">
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="current-lower-min"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#min-icon" />
+                  </svg>
+                </div>
+                <span
+                  class="w-100 border border-black border-1 rounded-pill text-center fw-bold"
+                  id="current-lower"
+                  >0</span
+                >
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="current-lower-plus"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#plus-icon" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="d-grid gap-1 upper-and-lower"
+            id="temperature-upper-and-lower"
+          >
+            <!-- Temperature Text -->
+            <div class="grid-item d-flex align-items-center mx-3">
+              <span class="fs-4 fw-bold">Temperature</span>
+            </div>
+            <div class="grid-item">
+              <span class="mx-3 fs-5">Upper Bound</span>
+            </div>
+            <div class="grid-item">
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="temperature-upper-min"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#min-icon" />
+                  </svg>
+                </div>
+                <span
+                  class="w-100 border border-black border-1 rounded-pill text-center fw-bold"
+                  id="temperature-upper"
+                  >1000</span
+                >
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="temperature-upper-plus"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#plus-icon" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="grid-item">
+              <span class="mx-3 fs-5">Lower Bound</span>
+            </div>
+            <div class="grid-item">
+              <div class="d-flex justify-content-center align-items-center">
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="temperature-lower-min"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#min-icon" />
+                  </svg>
+                </div>
+                <span
+                  class="w-100 border border-black border-1 rounded-pill text-center fw-bold"
+                  id="temperature-lower"
+                  >0</span
+                >
+                <div
+                  class="border-0 bg-transparent mx-2"
+                  id="temperature-lower-plus"
+                  onclick="handleClickPlusMin(event)"
+                >
+                  <svg class="" width="25" height="25" class="fill-grey">
+                    <use xlink:href="#plus-icon" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Custom Script -->
+    <script src="{% static 'js/monitoring.js' %}"></script>
+  </body>
+</html>
