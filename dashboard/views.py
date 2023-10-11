@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from dashboard.models import MQTTData
+from setting.models import MonitoringUpperAndLower
 from django.http import HttpResponse,JsonResponse
 from .mqtt_utils import subscribe_to_hivemq, publish_to_hivemq, mqtt_data
 import threading
@@ -25,9 +26,10 @@ def get_dashboard_data(request):
     subscribe_thread.start()
     
     data_sensor = MQTTData.objects.order_by("-pk")[0]
-    if data_sensor.current > 0.1:
-        # Jika 'current' melebihi 1.0, maka kirim pesan 'warning'
-        publish_message(request)
+    treshold = MonitoringUpperAndLower.objects.order_by("-pk")[0]
+    # if data_sensor.current > 0.1:
+    #     # Jika 'current' melebihi 1.0, maka kirim pesan 'warning'
+    #     publish_message(request)
     # print(data_sensor.temperature, data_sensor.current)
     sensorValue = {
         "currentValue" : data_sensor.current,
