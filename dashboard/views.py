@@ -25,9 +25,9 @@ def get_dashboard_data(request):
     subscribe_thread.start()
     
     data_sensor = MQTTData.objects.order_by("-pk")[0]
-    if data_sensor.current > 0.1:
-        # Jika 'current' melebihi 1.0, maka kirim pesan 'warning'
-        publish_message(request)
+    # if data_sensor.current > 0.1:
+    #     # Jika 'current' melebihi 1.0, maka kirim pesan 'warning'
+    #     publish_message(request)
     # print(data_sensor.temperature, data_sensor.current)
     sensorValue = {
         "currentValue" : data_sensor.current,
