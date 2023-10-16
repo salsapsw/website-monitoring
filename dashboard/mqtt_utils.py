@@ -20,6 +20,7 @@ class MyMQTTData:
             'current': float(data_list[1]),
             'vibration': float(data_list[2])
         }
+        self.save()
 
     def save(self):
         # with transaction.atomic():
@@ -29,57 +30,26 @@ class MyMQTTData:
             vibration=self.data['vibration'],
          )
         mqtt_data.save()
-
-mqtt_data = MyMQTTData()  # Gunakan kelas MyMQTTData
-def on_message(client, userdata, message):
-    topic = message.topic
-    payload = message.payload.decode()
-    
-    mqtt_data.update(topic, payload)
-    print(f"Received message on topic '{topic}': {payload}")
-    if mqtt_data.data['current'] == 0:
-        status = {"status": "Server is offline"}
-    else:
-        if all(value is not None for value in mqtt_data.data.values()):
-            mqtt_data.save()
-            # time.sleep(.5)
-            client.loop_stop()
-            status = {"status": "Server is online"}
-    print(status)
-
-    # publish_to_hivemq('status', status)
-    
-    # if mqtt_data.data['current'] != 0:
-    # # Jika ada data untuk topik, simpan ke dalam database
-    #     if all(value is not None for value in mqtt_data.data.values()):
-    #         mqtt_data.save()
-    #         time.sleep(.5)
-    #         client.loop_stop()
         
-
-def subscribe_to_hivemq():
-    client = mqtt.Client()
-    client.on_message = on_message
-
-    # Konfigurasi TLS jika diperlukan (pastikan Anda memiliki sertifikat TLS)
-    sslContext = ssl.create_default_context()
-    client.tls_set_context(sslContext)
-
-    # Konfigurasi otentikasi jika diperlukan (ganti dengan informasi otentikasi Anda)
-    client.username_pw_set(username='RamaPMPD', password='Kerasakti123')
-
-    # Hubungkan ke broker HiveMQ (ganti dengan alamat host dan port HiveMQ yang sesuai)
-    client.connect('b5208bedc9794c2397ead6f7870bb494.s1.eu.hivemq.cloud', port=8883)
-
-    # Berlangganan ke topik tertentu (ganti dengan topik yang sesuai dengan kebutuhan Anda)
-    client.subscribe('dataSensor')
-    # client.subscribe('vibration')
-    # client.subscribe('temperature')
-    # client.subscribe('current')
-
-    # Mulai loop untuk mendengarkan pesan
-    # client.loop_forever()
-    client.loop_start()
+def subs_baru():
+    username = "RamaPMPD"
+    password = "Kerasakti123"
+    host = "b5208bedc9794c2397ead6f7870bb494.s1.eu.hivemq.cloud"
+    port = 8883
+    topic = "dataSensor"
+    # Subscribe to the specified topic using subscribe.simple()
+    msg = subscribe.simple(
+        topic,
+        hostname=host,
+        port=port,
+        auth={"username": username, "password": password},
+        tls={"ca_certs": None, "certfile": None, "keyfile": None},
+    )
+    
+    mqtt_data = MyMQTTData()
+    mqtt_data.update(topic=topic, payload=msg.payload.decode())
+    # Process the received message
+    print(f"Received message on topic {msg.topic}: {msg.payload.decode()}")
     
 
 def publish_to_hivemq(topic, message):
@@ -100,25 +70,42 @@ def publish_to_hivemq(topic, message):
     client.publish(topic, message)
 
     # Menunggu pesan diproses dan kemudian menutup koneksi dengan broker
-    client.loop_forever()
+    client.loop_start()
+    
 
+mqtt_data = MyMQTTData()  # Gunakan kelas MyMQTTData
+def on_message(client, userdata, message):
+    topic = message.topic
+    payload = message.payload.decode()
+    
+    mqtt_data.update(topic, payload)
+    print(f"Received message on topic '{topic}': {payload}")
+    if mqtt_data.data['current'] == 0:
+        status = {"status": "Server is offline"}
+    else:
+        if all(value is not None for value in mqtt_data.data.values()):
+            mqtt_data.save()
+            # time.sleep(.5)
+            status = {"status": "Server is online"}
+    print(status)
+        
 
-def subs_baru():
-    username = "RamaPMPD"
-    password = "Kerasakti123"
-    host = "b5208bedc9794c2397ead6f7870bb494.s1.eu.hivemq.cloud"
-    port = 8883
-    topic = "dataSensor"
-    # Subscribe to the specified topic using subscribe.simple()
-    msg = subscribe.simple(
-        topic,
-        hostname=host,
-        port=port,
-        auth={"username": username, "password": password},
-        tls={"ca_certs": None, "certfile": None, "keyfile": None},
-    )
-    
-    mqtt_data = MyMQTTData()
-    
-    mqtt_data.update(payload=msg.payload.decode())
-    
+def subscribe_to_hivemq():
+    client = mqtt.Client()
+    client.on_message = on_message
+
+    # Konfigurasi TLS jika diperlukan (pastikan Anda memiliki sertifikat TLS)
+    sslContext = ssl.create_default_context()
+    client.tls_set_context(sslContext)
+
+    # Konfigurasi otentikasi jika diperlukan (ganti dengan informasi otentikasi Anda)
+    client.username_pw_set(username='RamaPMPD', password='Kerasakti123')
+
+    # Hubungkan ke broker HiveMQ (ganti dengan alamat host dan port HiveMQ yang sesuai)
+    client.connect('b5208bedc9794c2397ead6f7870bb494.s1.eu.hivemq.cloud', port=8883)
+
+    # Berlangganan ke topik tertentu (ganti dengan topik yang sesuai dengan kebutuhan Anda)
+    client.subscribe('dataSensor')
+
+    # Mulai loop untuk mendengarkan pesan
+    client.loop_start()

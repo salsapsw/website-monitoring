@@ -82,7 +82,7 @@
       </symbol>
     </svg>
     <!-- The end of stored svgs -->
-
+    {% include "header.html" %}
     <!-- Content Start Here -->
     <!-- monitoring Controller Start Here -->
     <div
@@ -94,9 +94,57 @@
         id="monitoring-mode-control-container"
       >
         <!-- monitoring Mode Text -->
-        <div class="row mt-1">
-          <div class="d-flex justify-content-center align-items-center">
-            <span class="fs-2 fw-bold my-1">Setting | Monitorings</span>
+        <div class="row m-lg-3">
+          <div
+            class="Settings"
+            style="
+              width: 299px;
+              left: 20px;
+              top: 70px;
+              position: absolute;
+              color: #2a4150;
+              font-size: 40px;
+              font-family: Roboto;
+              font-weight: 100;
+              line-height: 65px;
+              word-wrap: break-word;
+            "
+          >
+            SETTINGS
+          </div>
+          <div
+            class="garis"
+            style="
+              width: 299px;
+              left: 230px;
+              top: 70px;
+              position: absolute;
+              color: #2a4150;
+              font-size: 40px;
+              font-family: Roboto;
+              font-weight: 100;
+              line-height: 55px;
+              word-wrap: break-word;
+            "
+          >
+            |
+          </div>
+          <div
+            class="Monitoring"
+            style="
+              width: 277px;
+              left: 310px;
+              top: 80px;
+              position: absolute;
+              color: #2a4150;
+              font-size: 36px;
+              font-family: Roboto;
+              font-weight: 90;
+              line-height: 46.8px;
+              word-wrap: break-word;
+            "
+          >
+            Monitorings
           </div>
         </div>
       </div>
@@ -324,5 +372,6 @@
 
     <!-- Custom Script -->
     <script src="{% static 'js/monitoring.js' %}"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
   </body>
 </html>

@@ -22,7 +22,7 @@ from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('start_hivemq_subscription/', views.start_hivemq_subscription, name='start_hivemq_subscription'),
+    path('start_hivemq_subscription/', views.subscription, name='start_hivemq_subscription'),
     #buzzer
     # path('', views.publish_message, name='publish_message'),
     path("", include("dashboard.urls")),
