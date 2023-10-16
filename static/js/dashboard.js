@@ -43,25 +43,44 @@ async function getDashboardData() {
     try {
       const response = await fetch("/get-dashboard-data/");
       const data = await response.json();
-      const sensorValue = {
-        currentValue: data["currentValue"],
-        temperatureValue: data["temperatureValue"],
-        vibrationValue: data["vibrationValue"],
-      };
-      console.log(sensorValue);
-      for (const key in dashboardCard) {
-        console.log(key);
-        if (dashboardCard.hasOwnProperty(key)) {
+      const sensorValue = data["sensorValue"];
+      for (const key in sensorValue) {
+        if (sensorValue.hasOwnProperty(key)){
           const value = sensorValue[key];
+          // console.log(value);
           dashboardCard[key].textContent = value;
         }
+      }
+
+      const warningCondition = data["warningCondition"];
+      console.log(warningCondition);
+      const currentValueCard = document.getElementById("current-value");
+      const temperatureValueCard = document.getElementById("temperature-value");
+      const vibrationValueCard = document.getElementById("vibration-value");
+
+      if ( !warningCondition["warningTemperature"]){
+        temperatureValueCard.classList.remove("sensor-alert");
+      }else{
+        temperatureValueCard.classList.add("sensor-alert");
+      }
+
+      if ( !warningCondition["warningCurrent"]){
+        currentValueCard.classList.remove("sensor-alert");
+      }else{
+        currentValueCard.classList.add("sensor-alert");
+      }
+
+      if ( !warningCondition["warningVibration"]){
+        vibrationValueCard.classList.remove("sensor-alert");
+      }else{
+        vibrationValueCard.classList.add("sensor-alert");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }
   // Call updateTime every 100 milliseconds
-  setInterval(updateTime, 100);
+  setInterval(updateTime, 1000);
 }
 
 async function getStatus() {

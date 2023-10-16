@@ -59,7 +59,7 @@ header {
 
 .sensor-alert {
     animation: blinker 0.6s infinite ease-in-out alternate;
-    background-color: rgba(255, 240, 240, 1);
+    background-color: rgb(243, 2, 2);
 }
 
 @keyframes blinker {
