@@ -1,0 +1,44 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #F2F2F2;
+}
+
+.box {
+  max-height: 800px;
+  max-width: 1280px;
+  background-color: rgba(241, 241, 241, 1);
+}
+
+.content {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Membuat sidebar mengambang di tengah */
+.sidebar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container-fluid {
+  font-size: 3rem;
+  font-weight: 550;
+  color: white;
+}
+
+input:checked + label {
+  background-color: rgba(15, 177, 112, 1);
+  color: white;
+}
+
+.form-check-label {
+  font-size: 20px;
+  background-color: #60707A;
+  border-color: transparent;
+  font-family: "Poppins", sans-serif;
+}
+
+.active{
+  background-color: #2A4150;
+}

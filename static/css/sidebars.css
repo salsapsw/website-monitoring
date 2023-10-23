@@ -1,0 +1,36 @@
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  background-color: #ffffff;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+main {
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.flex-column{
+  width: 233px;
+  height: 550px;
+  left: 40px; top: 70px; 
+  position: absolute; 
+  border-radius: 30px; 
+  background: #b6babc;
+  border-radius: 10px;
+}
+
+.text-center{
+  font-size: medium;
+
+}
+
+.aktive{
+  background-color: #2A4150;
+}
