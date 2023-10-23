@@ -1,0 +1,57 @@
+<!-- header.html -->
+<!-- All svg's are stored here -->
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <!--Logo Home-->
+  <symbol
+    xmlns="http://www.w3.org/2000/svg"
+    id="Home"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M10.698 2.799a2 2 0 012.604 0l6.336 5.43 2.487 1.99a1 1 0 11-1.25 1.562l-.875-.7V19a2 2 0 01-2 2h-4v-5a2 2 0 10-4 0v5H6a2 2 0 01-2-2v-7.92l-.875.7a1 1 0 11-1.25-1.56l2.487-1.99 6.336-5.431z"
+      fill="white"
+    />
+  </symbol>
+
+  <symbol
+    xmlns="http://www.w3.org/2000/svg"
+    id="graph"
+    fill="white"
+    class="bi bi-graph-up-arrow"
+  >
+    <path
+      fill-rule="evenodd"
+      d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"
+    />
+  </symbol>
+</svg>
+<!-- The end of stored svgs -->
+
+<!-- Content Start Here -->
+<!-- Header Full Width -->
+<header>
+    <nav class="navbar left-icon navbar-expand-lg navbar-light navbar-custom">
+        <!-- Logo "Home" -->
+        <div>
+            <a class="navbar-brand ms-4" href="{% url 'graph_app:graph' %}" style="color: white">
+                <svg width="30" height="25">
+          <use xlink:href="#graph" />
+        </svg> GRAPHIC
+            </a>
+        </div>
+        <!-- <div class="navbar-center-content mx-auto">
+            <span id="real-time-clock"></span>
+        </div> -->
+
+        <!--  Gambar Pengguna -->
+        <div class="right-icon nav-item mr-auto">
+            <a class="navbar-brand" href="{% url 'dashboard_app:dashboard' %}">
+                <svg width="30" height="30">
+          <use xlink:href="#Home" />
+        </svg>
+            </a>
+        </div>
+    </nav>
+</header>

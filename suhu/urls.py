@@ -17,14 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import dashboard.views as views
+import graph.views as graph_views
 from django.http import HttpResponse
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('start_hivemq_subscription/', views.subscription, name='start_hivemq_subscription'),
-    #buzzer
-    # path('', views.publish_message, name='publish_message'),
     path("", include("dashboard.urls")),
     path("setting/", include("setting.urls")),
+    path("graph/", include("graph.urls")),
+    # path("", graph_views.get_data_to_show, name ='get_data_to_show'),
 ]

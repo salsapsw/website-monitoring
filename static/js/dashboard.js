@@ -5,24 +5,24 @@ const dashboardCard = {
   vibrationValue: document.querySelector("#vibration-value .card-text"),
 };
 
-updateRealTimeClock();
-async function updateRealTimeClock() {
-  const realTimeClockElement = document.getElementById("real-time-clock");
-  const currentDate = new Date();
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  };
-  const formattedDateTime = currentDate.toLocaleDateString(undefined, options);
-  realTimeClockElement.innerText = formattedDateTime;
-  console.log(formattedDateTime);
-}
-setInterval(updateRealTimeClock, 1000);
+// updateRealTimeClock();
+// async function updateRealTimeClock() {
+//   const realTimeClockElement = document.getElementById("real-time-clock");
+//   const currentDate = new Date();
+//   const options = {
+//     weekday: "long",
+//     year: "numeric",
+//     month: "long",
+//     day: "numeric",
+//     hour: "2-digit",
+//     minute: "2-digit",
+//     second: "2-digit",
+//   };
+//   const formattedDateTime = currentDate.toLocaleDateString(undefined, options);
+//   realTimeClockElement.innerText = formattedDateTime;
+//   // console.log(formattedDateTime);
+// }
+// setInterval(updateRealTimeClock, 1000);
 
 
 
@@ -80,7 +80,7 @@ async function getDashboardData() {
     }
   }
   // Call updateTime every 100 milliseconds
-  setInterval(updateTime, 1000);
+  setInterval(updateTime,5000);
 }
 
 async function getStatus() {
