@@ -8,7 +8,7 @@ from django.db.models.functions import TruncHour
 
 
 def graph(request):
-    return render(request, "graph1.html")
+    return render(request, "graph1 copy.html")
 
 
 def get_date_selection(request):
@@ -36,7 +36,8 @@ def post_selected_data(request):
             else:
                 result = None
             # Return a JSON response with the list of values
-            response_data = {"message": "Data received successfully", "avg_data": result}
+            response_data = {
+                "message": "Data received successfully", "avg_data": result}
             return JsonResponse(response_data, status=200)
         except Exception as e:
             error_message = str(e)
