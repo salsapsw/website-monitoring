@@ -152,8 +152,9 @@
       </symbol>
     </svg>
 
-    <main class="d-flex ali gn-item-center">
-      <div class="nav nav-pills mx-3 flex-column my-4 mb-2">
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <div id="sidebar" class="col-2 nav nav-pills flex-column mt-4">
         <div class="text-center my-auto mb-4">
           <div class="form-check ps-0">
             <input
@@ -200,24 +201,55 @@
           </div>
         </div>
       </div>
-    </main>
-    <!-- Graph Container Start Here -->
-    <div class="col-9">
-      <div class="form-floating mt-3 col-3">
-        <select
-          class="form-select"
-          id="select-date"
-          onchange="postSelectedData(event)"
-        ></select>
-        <label for="select-date">Select a date</label>
-      </div>
-      <div id="forChart">
-        <canvas class="w-100 my-1" id="myChart" height="384"></canvas>
-      </div>
-      <!-- Graph Container End Here -->
+
+      <!-- Main content -->
+      <main class="col-9 left-item">
+        <!-- content... -->
+        <div>
+          <button
+            class="form-floating btnbuttun m-3 mt-5 col-2 label-select"
+            id="btnUtama1"
+          >
+            Date
+          </button>
+          <button
+            class="form-floating btnbuttun m-3 mt-5 col-2 label-select"
+            id="btnUtama2"
+          >
+            Week
+          </button>
+
+          <div id="selectBox1" style="display: none">
+            <div class="form-floating mt-2 col-3 label-select">
+              <select
+                class="form-select"
+                id="select-date"
+                onchange="postSelectedData(event)"
+              ></select>
+
+              <label for="select-date">Select a date</label>
+            </div>
+          </div>
+          <div id="selectBox2" style="display: none">
+            <div class="form-floating mt-2 col-3 label-select">
+              <select
+                class="form-select"
+                id="select-date"
+                onchange="postSelectedData(event)"
+              ></select>
+
+              <label for="select-date">Select a week</label>
+            </div>
+          </div>
+        </div>
+        <div id="forChart">
+          <canvas class="w-100 my-1" id="myChart" height="384"></canvas>
+        </div>
+      </main>
     </div>
-    <!-- Graph Container End Here -->
-    <script src=" {% static 'js/bootstrap.bundle.min.js' %} "></script>
-    <script src="{% static 'js/graph.js' %} "></script>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/graph.js' %}"></script>
+    <script src="{% static 'js/button.js' %}"></script>
   </body>
 </html>

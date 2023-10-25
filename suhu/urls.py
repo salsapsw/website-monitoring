@@ -23,9 +23,10 @@ from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('start_hivemq_subscription/', views.subscription, name='start_hivemq_subscription'),
+    path('start_hivemq_subscription/', views.start_hivemq_subscription, name='start_hivemq_subscription'),
     path("", include("dashboard.urls")),
     path("setting/", include("setting.urls")),
     path("graph/", include("graph.urls")),
+    path("user/", include("user.urls")),
     # path("", graph_views.get_data_to_show, name ='get_data_to_show'),
 ]

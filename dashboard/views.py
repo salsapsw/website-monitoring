@@ -1,14 +1,12 @@
 from django.shortcuts import render
-import paho.mqtt.client as mqtt
 from dashboard.models import MQTTData
-from setting.models import MonitoringUpperAndLower
 from django.http import HttpResponse,JsonResponse
-from .mqtt_utils import subscribe_to_hivemq, publish_to_hivemq, mqtt_data, subs_baru
+from .mqtt_utils import subscribe_to_hivemq, publish_to_hivemq, mqtt_data
 import threading
-import time
 from datetime import date, timedelta
 from django.db.models import Avg
 from django.db.models.functions import TruncMinute
+
 
 # Create your views here.
 def start_hivemq_subscription(request):
@@ -16,53 +14,37 @@ def start_hivemq_subscription(request):
     subscribe_thread.start()
     return HttpResponse("HiveMQ subscription started successfully")
 
-def subscription(request):
-    subscribe_thread = threading.Thread(target=subs_baru)
-    subscribe_thread.start()
-    return HttpResponse("HiveMQ subscription started successfully")
-
 def dashboard(request):
     return render(request, 'dashboard.html')
 
 # def get_status(request):
-#     status = "Server is offline" if mqtt_data.data['current'] == 0 else "Server is online"
+#     status = "Server is online" if mqtt_data.data['current'] != 0 else "Server is offline"
 #     response_data = {'status': status}
 #     return JsonResponse(response_data)
 
 
 def get_dashboard_data(request):
     
-    # subscribe_thread = threading.Thread(target=subscribe_to_hivemq)
-    # subscribe_thread.start()
-    subs_baru()
+    subscribe_thread = threading.Thread(target=subscribe_to_hivemq)
+    subscribe_thread.start()
     
     data_sensor = MQTTData.objects.order_by("-pk")[0]
-    treshold = MonitoringUpperAndLower.objects.order_by("-pk")[0]
-    # print(data_sensor.temperature, data_sensor.current)
+    # if data_sensor.current > 0.1:
+    #     # Jika 'current' melebihi 1.0, maka kirim pesan 'warning'
+    #     publish_message(request)
+    # # print(data_sensor.temperature, data_sensor.current)
     sensorValue = {
         "currentValue" : data_sensor.current,
         "temperatureValue" : data_sensor.temperature,
         "vibrationValue" : data_sensor.vibration,
     }
-    warningCondition = (
-        {
-            "warningTemperature" : not treshold.temperature_lower <= data_sensor.temperature <= treshold.temperature_upper,
-            "warningCurrent" : not treshold.current_lower <= data_sensor.current <= treshold.current_upper,
-            "warningVibration" : not treshold.vibration_lower <= data_sensor.vibration <= treshold.vibration_upper,
-        }
-    )
-    context = {"sensorValue": sensorValue, "warningCondition": warningCondition}
-    if any(warningCondition.values()):
-        publish_message(warningCondition)
-        time.sleep(.15)
-        # client = mqtt.Client
-        # client.loop_stop(self)
-    return JsonResponse(context)
+    # print(sensorValue)
+    return JsonResponse(sensorValue)
 
-def publish_message(warningCondition):
-    # Kirim pesan dengan topik yang sesuai ke broker MQTT
+def publish_message(request):
+    # Panggil fungsi publish_to_hivemq dengan parameter yang sesuai
     publish_to_hivemq('warning', 'warning')
-    return HttpResponse('haha')
+    return HttpResponse("warning")
 
 def get_data_minutes(request):
     today = date.today()
