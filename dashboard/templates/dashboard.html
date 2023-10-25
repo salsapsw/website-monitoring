@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="refresh" content="10">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arbutus+Slab" /> {% load static %}
+    <meta http-equiv="refresh" content="10" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arbutus+Slab" />
+    {% load static %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- All svg's are stored here -->
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <!--Logo Home-->
-      <symbol
-        xmlns="http://www.w3.org/2000/svg"
-        id="Home"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-      >
+      <symbol xmlns="http://www.w3.org/2000/svg" id="Home" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path
           fill-rule="evenodd"
           clip-rule="evenodd"
@@ -30,11 +27,7 @@
         />
       </symbol>
       <!--Logo Setting-->
-      <symbol
-        xmlns="http://www.w3.org/2000/svg"
-        id="Setting"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-      >
+      <symbol xmlns="http://www.w3.org/2000/svg" id="Setting" xmlns:xlink="http://www.w3.org/1999/xlink">
         <path d="m0 0h24v24h-24z" fill="none" />
         <path
           fill="white"
@@ -42,18 +35,10 @@
         />
       </symbol>
       <!--Logo User-->
-      <symbol
-        xmlns="http://www.w3.org/2000/svg"
-        id="User"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-      >
+      <symbol xmlns="http://www.w3.org/2000/svg" id="User" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g fill="#fff">
-          <path
-            d="m12 12c2.7614 0 5-2.23858 5-5s-2.2386-5-5-5c-2.76142 0-5 2.23858-5 5s2.23858 5 5 5z"
-          />
-          <path
-            d="m12.0002 14.5c-5.01004 0-9.09004 3.36-9.09004 7.5 0 .28.22.5.5.5h17.18004c.28 0 .5-.22.5-.5 0-4.14-4.08-7.5-9.09-7.5z"
-          />
+          <path d="m12 12c2.7614 0 5-2.23858 5-5s-2.2386-5-5-5c-2.76142 0-5 2.23858-5 5s2.23858 5 5 5z" />
+          <path d="m12.0002 14.5c-5.01004 0-9.09004 3.36-9.09004 7.5 0 .28.22.5.5.5h17.18004c.28 0 .5-.22.5-.5 0-4.14-4.08-7.5-9.09-7.5z" />
         </g>
       </symbol>
     </svg>
@@ -62,97 +47,167 @@
     <!-- Content Start Here -->
     <!-- Header Full Width -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
-            <!-- Logo "Home" -->
-            <a class="navbar-brand ms-2" href="#">
-                <svg width="30" height="30">
+      <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <!-- Logo "Home" -->
+        <a class="navbar-brand ms-2" href="#">
+          <svg width="30" height="30">
             <use xlink:href="#Home" />
           </svg>
-            </a>
-            <!-- Dropdown Gambar Setting -->
-            <div class="nav-item dropdown ms-2">
-                <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
-                    <svg width="30" height="30">
+        </a>
+        <!-- Dropdown Gambar Setting -->
+        <div class="nav-item dropdown ms-2">
+          <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
+            <svg width="30" height="30">
               <use xlink:href="#Setting" />
             </svg>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownSetting">
-                    <!-- Baris Members -->
-                    <a class="dropdown-item" href="#">Members</a>
-                    <div class="dropdown-divider"></div>
-                    <!-- Garis pemisah -->
-                    <!-- Baris Monitorings -->
-                    <a class="dropdown-item" href="{% url 'setting_app:monitoring'%}">Monitorings</a>
-                </div>
-            </div>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownSetting">
+            <!-- Baris Members -->
+            <a class="dropdown-item" href="#">Members</a>
+            <div class="dropdown-divider"></div>
+            <!-- Garis pemisah -->
+            <!-- Baris Monitorings -->
+            <a class="dropdown-item" href="{% url 'setting_app:monitoring'%}">Monitorings</a>
+          </div>
+        </div>
 
-            <!-- Tanggal dan Jam Real-Time -->
-            <div class="navbar-center-content mx-auto">
-                <span id="real-time-clock"></span>
-            </div>
+        <!-- Tanggal dan Jam Real-Time -->
+        <div class="navbar-center-content mx-auto">
+          <span id="real-time-clock"></span>
+        </div>
 
-            <!-- Dropdown Gambar Pengguna -->
-            <div class="nav-item dropdown mr-auto">
-                <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
-                    <svg width="30" height="30">
+        <!-- Dropdown Gambar Pengguna -->
+        <div class="nav-item dropdown mr-auto">
+          <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
+            <svg width="30" height="30">
               <use xlink:href="#User" />
             </svg>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUser">
-                    <!-- Baris Profil -->
-                    <a class="dropdown-item" href="#">Profil</a>
-                    <div class="dropdown-divider"></div>
-                    <!-- Garis pemisah -->
-                    <!-- Baris Logout -->
-                    <a class="dropdown-item" href="#">Logout</a>
-                </div>
-            </div>
-        </nav>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUser">
+            <!-- Baris Profil -->
+            <a class="dropdown-item" href="#">Profil</a>
+            <div class="dropdown-divider"></div>
+            <!-- Garis pemisah -->
+            <!-- Baris Logout -->
+            <a class="dropdown-item" href="#">Logout</a>
+          </div>
+        </div>
+      </nav>
     </header>
     <!-- Dashboard Full Width -->
     <div id="dashboard-container" class="p-4 mt-5">
-        <div class="container">
-            <div class="row row-cols-3 g-5">
-                <!-- Vibration Card -->
-                <div class="col">
-                    <div class="card" id="vibration-value">
-                        <div class="card-body">
-                            <h1 class="card-title">Vibration</h1>
-                            <p class="card-text">-</p>
-                            <h2 class="card-title">mm/s2</h2>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- current Card -->
-                <div class="col">
-                    <div class="card" id="current-value">
-                        <div class="card-body">
-                            <h1 class="card-title">Current</h1>
-                            <p class="card-text">-</p>
-                            <h2 class="card-title">A</h2>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Temperature Card -->
-                <div class="col">
-                    <div class="card" id="temperature-value">
-                        <div class="card-body">
-                            <h1 class="card-title">Temperature</h1>
-                            <p class="card-text">-</p>
-                            <h2 class="card-title">C</h2>
-                        </div>
-                    </div>
-                </div>
+      <div class="container">
+        <div class="row row-cols-3 g-5">
+          <!-- Vibration Card -->
+          <div class="col">
+            <div class="card" id="vibration-value">
+              <div class="card-body">
+                <h1 class="card-title">Vibration</h1>
+                <p class="card-text">-</p>
+                <h2 class="card-title">mm/s2</h2>
+              </div>
             </div>
-            <div id="status">{{ status }}</div>
+          </div>
+
+          <!-- current Card -->
+          <div class="col">
+            <div class="card" id="current-value">
+              <div class="card-body">
+                <h1 class="card-title">Current</h1>
+                <p class="card-text">-</p>
+                <h2 class="card-title">A</h2>
+              </div>
+            </div>
+          </div>
+
+          <!-- Temperature Card -->
+          <div class="col">
+            <div class="card" id="temperature-value">
+              <div class="card-body">
+                <h1 class="card-title">Temperature</h1>
+                <p class="card-text">-</p>
+                <h2 class="card-title">C</h2>
+              </div>
+            </div>
+          </div>
         </div>
+        <div id="status"></div>
+        {% comment %}
+        <div id="dataForLast7Days"></div>
+        {% endcomment %}
+
+        <div style="width: 80%; margin: 0 auto">
+          <canvas id="myChart"></canvas>
+        </div>
+        <script>
+          // Data untuk grafik
+          const today = new Date();
+          const labels = [today.toISOString().split("T")[0]]; // Tanggal hari ini
+
+          for (let i = 1; i <= 7; i++) {
+            const previousDate = new Date(today);
+            previousDate.setDate(today.getDate() - i);
+            labels.unshift(previousDate.toISOString().split("T")[0]); // Tambahkan tanggal 7 hari terakhir
+          }
+
+          const data = {
+            labels: labels,
+            datasets: [
+              {
+                label: "Online",
+                data: [], // Ganti dengan data online (8 nilai, 1 untuk setiap tanggal)
+                backgroundColor: "rgba(0, 128, 0, 0.2",
+                borderColor: "rgb(0, 128, 0)",
+                borderWidth: 1,
+              },
+              {
+                label: "Offline",
+                data: [], // Ganti dengan data offline (8 nilai, 1 untuk setiap tanggal)
+                backgroundColor: "rgba(255, 0, 0, 0.2",
+                borderColor: "rgb(255, 0, 0)",
+                borderWidth: 1,
+              },
+            ],
+          };
+
+          // Konfigurasi grafik
+          const config = {
+            type: "bar",
+            data: data,
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            },
+          };
+
+          const ctx = document.getElementById("myChart").getContext("2d");
+          const myChart = new Chart(ctx, config);
+
+          function getDataMinutes() {
+            fetch("/get-data-minutes/") // Ganti dengan URL yang sesuai
+              .then((response) => response.json())
+              .then((data) => {
+                // Mengisi data dalam grafik berdasarkan data yang diterima
+                myChart.data.labels = data.labels;
+                myChart.data.datasets[0].data = data.online;
+                myChart.data.datasets[1].data = data.offline;
+                myChart.update(); // Memperbarui grafik
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          }
+
+          getDataMinutes();
+        </script>
+      </div>
     </div>
 
     <!-- Footer Full Width -->
-    <a type="button" class="btn btn-light rounded-pill d-flex justify-content-center align-items-center fs-4 fw-bold m-2 px-3" href="{% url 'graph_app:graph'%}">Graph</a
-    >
+    <a type="button" class="btn btn-light rounded-pill d-flex justify-content-center align-items-center fs-4 fw-bold m-2 px-3" href="{% url 'graph_app:graph'%}">Graph</a>
     <!-- Footer End Here -->
     <!-- Content End Here -->
 
