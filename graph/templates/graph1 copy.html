@@ -1,23 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html>
   <head>
-    <!-- <script src="../assets/js/color-modes.js"></script> -->
-
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-    />
-    <meta name="generator" content="Hugo 0.118.2" />
     <title>Graph</title>
-
     <link
       rel="canonical"
       href="https://getbootstrap.com/docs/5.3/examples/sidebars/"
     />
-
+    <!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
+    <script src="https://cdn.canvasjs.com/ga/canvasjs.stock.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
@@ -27,7 +19,10 @@
     <link rel="stylesheet" href="{% static 'css/sidebars.css' %}" />
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
     <link rel="stylesheet" href="{% static 'css/grap.css' %}" />
-    <script src="{% static 'js/chart.min.js' %}"></script>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -107,7 +102,6 @@
       }
     </style>
   </head>
-
   <body>
     {% include "headerg.html" %}
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -152,104 +146,79 @@
       </symbol>
     </svg>
 
-    <div class="d-flex">
-      <!-- Sidebar -->
-      <div id="sidebar" class="col-2 nav nav-pills flex-column mt-4">
-        <div class="text-center my-auto mb-4">
-          <div class="form-check ps-0">
-            <input
-              type="checkbox"
-              onclick="postSelectedData(event)"
-              class="form-check-input d-none"
-              id="show-temperature"
-            />
-            <label
-              class="form-check-label text-center fw-bold border border-1 rounded-4 w-100 px-1 py-3"
-              for="show-temperature"
-              >Temperature</label
-            >
-          </div>
-        </div>
-        <div class="mt-4 text-center my-auto mb-4">
-          <div class="form-check ps-0">
-            <input
-              type="checkbox"
-              onclick="postSelectedData(event)"
-              class="form-check-input d-none"
-              id="show-current"
-            />
-            <label
-              class="form-check-label text-center fw-bold border border-1 rounded-4 w-100 px-1 py-3"
-              for="show-current"
-              >Current</label
-            >
-          </div>
-        </div>
-        <div class="mt-4 text-center my-auto">
-          <div class="form-check ps-0">
-            <input
-              type="checkbox"
-              onclick="postSelectedData(event)"
-              class="form-check-input d-none"
-              id="show-vibration"
-            />
-            <label
-              class="form-check-label text-center fw-bold border border-1 rounded-4 w-100 px-1 py-3"
-              for="show-vibration"
-              >Vibration</label
-            >
-          </div>
+    <div id="sidebar" class="col-2 nav nav-pills flex-column mt-4">
+      <div class="btn-group-vertical text-center my-auto">
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="temperature-btn"
+          autocomplete="off"
+        />
+        <label
+          class="btn form-check-label text-center fw-bold border border-1 rounded-4 w-100 px-1 py-3"
+          for="temperature-btn"
+          >Temperature</label
+        >
+        <div class="mb-2"></div>
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="current-btn"
+          autocomplete="off"
+        />
+        <label
+          class="btn form-check-label text-center fw-bold border border-1 rounded-4 w-100 px-1 py-3"
+          for="current-btn"
+          >Current</label
+        >
+        <div class="mb-2"></div>
+        <input
+          type="radio"
+          class="btn-check"
+          name="btnradio"
+          id="vibration-btn"
+          autocomplete="off"
+        />
+        <label
+          class="btn form-check-label text-center fw-bold border border-1 rounded-4 w-100 px-1 py-3"
+          for="vibration-btn"
+          >Vibration</label
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3 offset-md-3">
+        <div class="form-floating mt-3">
+          <select class="form-select" id="view-type">
+            <option value="daily">Harian</option>
+            <option value="weekly">Mingguan</option>
+          </select>
+          <label for="view-type">Select range</label>
         </div>
       </div>
-
-      <!-- Main content -->
-      <main class="col-9 left-item">
-        <!-- content... -->
-        <div>
-          <button
-            class="form-floating btnbuttun m-3 mt-5 col-2 label-select"
-            id="btnUtama1"
-          >
-            Date
-          </button>
-          <button
-            class="form-floating btnbuttun m-3 mt-5 col-2 label-select"
-            id="btnUtama2"
-          >
-            Week
-          </button>
-
-          <div id="selectBox1" style="display: none">
-            <div class="form-floating mt-2 col-3 label-select">
-              <select
-                class="form-select"
-                id="select-date"
-                onchange="postSelectedData(event)"
-              ></select>
-
-              <label for="select-date">Select a date</label>
-            </div>
-          </div>
-          <div id="selectBox2" style="display: none">
-            <div class="form-floating mt-2 col-3 label-select">
-              <select
-                class="form-select"
-                id="select-date"
-                onchange="postSelectedData(event)"
-              ></select>
-
-              <label for="select-date">Select a week</label>
-            </div>
-          </div>
+      <div class="col-3 offset-md-2">
+        <div class="form-floating mt-3">
+          <input type="text" class="form-control" id="datepicker" />
+          <label for="select-date">Select a date</label>
         </div>
-        <div id="forChart">
-          <canvas class="w-100 my-1" id="myChart" height="384"></canvas>
-        </div>
-      </main>
+      </div>
     </div>
+    <main class="col-9 left-item ">
+      <!--Pemanggilan graph-->
+      <div id="chartContainer" style="height: 472px; width: 100%"></div>
+      <!--menutup link canvas.js-->
+      <div class="overlay-container" style="position: absolute; top: 87%; left: 91%; transform: translate(-50%, -50%);">
+        <div class="overlay-content">
+          <div class="overlay-box" style="width: 94px; height: 10px; background-color: #ffff;"></div>
+        </div>
+    </div>
+    </main>
 
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/graph.js' %}"></script>
-    <script src="{% static 'js/button.js' %}"></script>
+    <script src="{% static 'js/chart1.js' %}"></script>
+    <script>
+
+    </script>
   </body>
 </html>

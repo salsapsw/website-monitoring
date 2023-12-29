@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="refresh" content="10" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    {% comment %}
+    <meta http-equiv="refresh" content="5" />
+    {% endcomment %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arbutus+Slab" />
     {% load static %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js"></script>
@@ -12,6 +15,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      .dropdown-menu-center {
+        transform: translateX(-50%);
+        left: 50% !important;
+      }
+    </style>
   </head>
 
   <body>
@@ -41,21 +51,75 @@
           <path d="m12.0002 14.5c-5.01004 0-9.09004 3.36-9.09004 7.5 0 .28.22.5.5.5h17.18004c.28 0 .5-.22.5-.5 0-4.14-4.08-7.5-9.09-7.5z" />
         </g>
       </symbol>
+
+      <!-- logo vibration  -->
+      <symbol xmlns="http://www.w3.org/2000/svg" id="vibration" fill="none">
+        <path
+          d="M34.612 25.2521C39.6383 25.2521 43.7129 22.12 43.7129 18.2562C43.7129 14.3925 39.6383 11.2604 34.612 11.2604C29.5857 11.2604 25.5111 14.3925 25.5111 18.2562C25.5111 22.12 29.5857 25.2521 34.612 25.2521Z"
+          stroke="white"
+          stroke-opacity="0.7"
+          stroke-width="2.54654"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path d="M59.1389 34.7783C64.3631 30.2043 67.2439 24.3256 67.2439 18.2389C67.2439 12.1522 64.3631 6.27342 59.1389 1.69946" stroke="white" stroke-opacity="0.7" stroke-width="2.54654" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M10.085 1.7345C4.87327 6.30615 2 12.1777 2 18.2564C2 24.3351 4.87327 30.2067 10.085 34.7783" stroke="white" stroke-opacity="0.7" stroke-width="2.54654" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M21.4155 10.4443C19.1769 12.685 17.9634 15.4312 17.9634 18.2564C17.9634 21.0816 19.1769 23.8278 21.4155 26.0685" stroke="white" stroke-opacity="0.7" stroke-width="2.54654" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M47.8083 26.0685C50.0469 23.8278 51.2604 21.0816 51.2604 18.2564C51.2604 15.4312 50.0469 12.685 47.8083 10.4443" stroke="white" stroke-opacity="0.7" stroke-width="2.54654" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M15.8489 6.16516C12.1557 9.55464 10.1318 13.835 10.1318 18.2564C10.1318 22.6777 12.1557 26.9581 15.8489 30.3476" stroke="white" stroke-opacity="0.7" stroke-width="2.54654" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M53.375 30.3476C57.0682 26.9581 59.0921 22.6777 59.0921 18.2564C59.0921 13.835 57.0682 9.55464 53.375 6.16516" stroke="white" stroke-opacity="0.7" stroke-width="2.54654" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+
+      <!-- logo current  -->
+      <symbol xmlns="http://www.w3.org/2000/svg" id="current" fill="none">
+        <path
+          d="M45.7193 32.371L24.8846 0.823035C24.684 0.569963 24.4117 0.362368 24.092 0.218761C23.7724 0.0751541 23.4152 0 23.0523 0C22.6895 0 22.3323 0.0751541 22.0127 0.218761C21.693 0.362368 21.4207 0.569963 21.2201 0.823035L0.280689 32.371C0.0982635 32.6354 0.00151249 32.9351 1.75902e-05 33.2404C-0.00147731 33.5457 0.0923357 33.846 0.272166 34.1116C0.451997 34.3773 0.711607 34.599 1.02529 34.7548C1.33896 34.9106 1.69583 34.9951 2.06054 35H43.9395C44.3042 34.9951 44.661 34.9106 44.9747 34.7548C45.2884 34.599 45.548 34.3773 45.7278 34.1116C45.9077 33.846 46.0015 33.5457 46 33.2404C45.9985 32.9351 45.9017 32.6354 45.7193 32.371ZM28.0255 19.7518L19.0215 28.6904C18.966 28.7718 18.8741 28.8313 18.7661 28.856C18.6581 28.8806 18.5429 28.8683 18.4457 28.8219C18.3485 28.7754 18.2773 28.6985 18.2479 28.6081C18.2184 28.5177 18.2331 28.4212 18.2886 28.3399L20.9061 21.855H16.7182C16.5237 21.855 16.3331 21.8097 16.1677 21.7241C16.0023 21.6386 15.8687 21.5162 15.7817 21.3706C15.6948 21.225 15.658 21.0621 15.6754 20.9C15.6929 20.7379 15.7639 20.5831 15.8806 20.4529L24.8846 11.4267C25.1986 11.1638 25.8268 11.5143 25.6174 11.8648L23 18.3497H27.1879C27.3823 18.3497 27.5729 18.395 27.7383 18.4806C27.9037 18.5661 28.0374 18.6885 28.1243 18.8341C28.2113 18.9797 28.2481 19.1426 28.2306 19.3047C28.2132 19.4668 28.1421 19.6216 28.0255 19.7518Z"
+          fill="white"
+          fill-opacity="0.7"
+        />
+      </symbol>
+
+      <!-- logo temperature  -->
+      <symbol xmlns="http://www.w3.org/2000/svg" id="temperature" fill="none">
+        <path
+          d="M0 30.8013C0 29.2621 0.392928 27.8316 1.15914 26.4916C1.92534 25.1517 3.00589 24.0471 4.40078 23.1598V5.19692C4.40078 3.7483 4.93124 2.51698 6.01179 1.52105C7.09234 0.525125 8.42829 0 10 0C11.5914 0 12.9273 0.507017 14.0079 1.50294C15.0884 2.51698 15.6385 3.73019 15.6385 5.17881V23.1417C17.0334 24.029 18.0943 25.1517 18.8605 26.4735C19.6267 27.7954 20 29.244 20 30.7832C20 32.4491 19.5481 34.0063 18.664 35.4187C17.78 36.8311 16.5619 37.9538 15.0295 38.7687C13.4971 39.5835 11.8271 40 10 40C8.19253 40 6.52259 39.5835 4.99018 38.7687C3.45776 37.9538 2.23969 36.8311 1.33595 35.4187C0.432221 34.0063 0 32.4672 0 30.8013ZM3.45776 30.8013C3.45776 32.4853 4.10609 33.9339 5.3831 35.129C6.66012 36.3241 8.21218 36.9217 10.0196 36.9217C11.8468 36.9217 13.4185 36.3241 14.7348 35.1109C16.0511 33.8977 16.7191 32.4672 16.7191 30.8194C16.7191 29.6967 16.4047 28.6464 15.776 27.6867C15.1473 26.727 14.2829 25.9846 13.1827 25.4595L12.6326 25.206C12.4361 25.1335 12.3379 24.9525 12.3379 24.6809V5.19692C12.3379 4.61747 12.1218 4.12857 11.6699 3.7302C11.2181 3.34993 10.668 3.15075 10 3.15075C9.37132 3.15075 8.82122 3.34993 8.36935 3.7302C7.91749 4.11046 7.70138 4.59937 7.70138 5.19692V24.6446C7.70138 24.9163 7.60314 25.0973 7.42633 25.1698L6.89587 25.4233C5.81532 25.9484 4.97053 26.6908 4.36149 27.6505C3.75246 28.6102 3.45776 29.6424 3.45776 30.8013ZM4.99018 30.8013C4.99018 32.0869 5.46169 33.1915 6.42436 34.0969C7.38703 35.0023 8.52652 35.455 9.88212 35.455C11.2377 35.455 12.3969 35.0023 13.3988 34.0969C14.4008 33.1915 14.8919 32.0869 14.8919 30.8194C14.8919 29.6786 14.4597 28.6646 13.6149 27.7954C12.7701 26.9262 11.7289 26.4011 10.5108 26.2562V12.9289C10.5108 12.8203 10.4519 12.6935 10.3143 12.5849C10.1768 12.4581 10.0393 12.4038 9.88212 12.4038C9.7053 12.4038 9.56778 12.4581 9.46955 12.5487C9.37132 12.6573 9.31238 12.766 9.31238 12.9289V26.22C8.11395 26.383 7.09234 26.89 6.24754 27.7592C5.40275 28.6464 4.99018 29.6424 4.99018 30.8013Z"
+          fill="white"
+          fill-opacity="0.7"
+        />
+      </symbol>
+
+      <symbol xmlns="http://www.w3.org/2000/svg" id="graph" fill="white">
+        <path
+          fill="none"
+          stroke="white"
+          stroke-width="2"
+          fill-rule="evenodd"
+          d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"
+        />
+      </symbol>
     </svg>
     <!-- The end of stored svgs -->
 
     <!-- Content Start Here -->
     <!-- Header Full Width -->
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <!-- <div class="container-fluid px-3"> -->
         <!-- Logo "Home" -->
-        <a class="navbar-brand ms-2" href="#">
+        <a class="navbar-brand ms-4" href="{% url 'dashboard_app:dashboard' %}">
           <svg width="30" height="30">
             <use xlink:href="#Home" />
           </svg>
         </a>
+
+        <!-- Ikon "Graph" -->
+        <a class="navbar-brand ms-2 mt-2" href="{% url 'graph_app:graph' %}">
+          <svg width="30" height="30">
+            <use xlink:href="#graph" />
+          </svg>
+        </a>
         <!-- Dropdown Gambar Setting -->
-        <div class="nav-item dropdown ms-2">
+        <div class="nav-item dropdown">
           <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
             <svg width="30" height="30">
               <use xlink:href="#Setting" />
@@ -63,56 +127,108 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownSetting">
             <!-- Baris Members -->
-            <a class="dropdown-item" href="#">Members</a>
+            <a class="dropdown-item" href="{% url 'setting_app:members'%}">Members</a>
             <div class="dropdown-divider"></div>
-            <!-- Garis pemisah -->
             <!-- Baris Monitorings -->
             <a class="dropdown-item" href="{% url 'setting_app:monitoring'%}">Monitorings</a>
           </div>
         </div>
+        <!-- Toggler/collapsibe Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <!-- Tanggal dan Jam Real-Time -->
-        <div class="navbar-center-content mx-auto">
-          <span id="real-time-clock"></span>
-        </div>
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+          <!-- Tanggal dan Jam Real-Time -->
+          <div class="navbar-center-content mx-auto">
+            <span id="real-time-clock"></span>
+          </div>
 
-        <!-- Dropdown Gambar Pengguna -->
-        <div class="nav-item dropdown mr-auto">
-          <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
-            <svg width="30" height="30">
-              <use xlink:href="#User" />
-            </svg>
-          </a>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUser">
-            <!-- Baris Profil -->
-            <a class="dropdown-item" href="#">Profil</a>
-            <div class="dropdown-divider"></div>
-            <!-- Garis pemisah -->
-            <!-- Baris Logout -->
-            <a class="dropdown-item" href="#">Logout</a>
+          <!-- Dropdown Gambar Pengguna -->
+          <div class="nav-item dropdown">
+            Hi, {{user}} {% if request.user.profile_picture %}
+            <a class="navbar-brand text-center" href="#" data-bs-toggle="dropdown">
+              <img src="{{ request.user.profile_picture.url }}" alt="{{ request.user.username }}'s profile picture" class="img-thumbnail" width="30" height="30" />
+            </a>
+            {% else %}
+            <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
+              <svg width="30" height="30">
+                <use xlink:href="#User" />
+              </svg>
+            </a>
+            {% endif %}
+            <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdownUser">
+              <!-- Baris Profil -->
+              <a class="dropdown-item" href="{% url 'profil_app:profil'%}">Profil</a>
+              <div class="dropdown-divider"></div>
+              <!-- Baris Logout -->
+              <a class="dropdown-item" href="{% url 'user_app:logout'%}">Logout</a>
+            </div>
           </div>
         </div>
+        <!-- </div> -->
       </nav>
     </header>
     <!-- Dashboard Full Width -->
-    <div id="dashboard-container" class="p-4 mt-5">
+    <div class="container-fluid py-3">
       <div class="container">
-        <div class="row row-cols-3 g-5">
+        <div class="row">
           <!-- Vibration Card -->
-          <div class="col">
-            <div class="card" id="vibration-value">
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-2">
+            <div class="card" id="accelvibX-value">
               <div class="card-body">
-                <h1 class="card-title">Vibration</h1>
+                <svg width="80" height="40" opacity="0.8">
+                  <use xlink:href="#vibration" />
+                </svg>
+                <h1 class="card-title">Vibration (x)</h1>
                 <p class="card-text">-</p>
-                <h2 class="card-title">mm/s2</h2>
+                <h2 class="card-title">
+                  mm/s<sup><span class="font-weight-bold small">2</span></sup>
+                </h2>
               </div>
             </div>
           </div>
 
-          <!-- current Card -->
-          <div class="col">
+          <!-- Vibration Card -->
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-2 text-center">
+            <div class="card" id="accelvibY-value">
+              <div class="card-body">
+                <svg width="80" height="40" opacity="0.8">
+                  <use xlink:href="#vibration" />
+                </svg>
+                <h1 class="card-title">Vibration (y)</h1>
+                <p class="card-text">-</p>
+                <h2 class="card-title">
+                  mm/s<sup><span class="font-weight-bold small">2</span></sup>
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vibration Card -->
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-2 text-center">
+            <div class="card" id="accelvibZ-value">
+              <div class="card-body">
+                <svg width="80" height="40" opacity="0.8">
+                  <use xlink:href="#vibration" />
+                </svg>
+                <h1 class="card-title">Vibration (z)</h1>
+                <p class="card-text">-</p>
+                <h2 class="card-title">
+                  mm/s<sup><span class="font-weight-bold small">2</span></sup>
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <!-- Current Card -->
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-2 offset-lg-2">
             <div class="card" id="current-value">
               <div class="card-body">
+                <svg width="50" height="40" opacity="0.8">
+                  <use xlink:href="#current" />
+                </svg>
                 <h1 class="card-title">Current</h1>
                 <p class="card-text">-</p>
                 <h2 class="card-title">A</h2>
@@ -121,23 +237,55 @@
           </div>
 
           <!-- Temperature Card -->
-          <div class="col">
+          <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mt-2 offset-lg-0 offset-sm-3">
             <div class="card" id="temperature-value">
               <div class="card-body">
+                <svg width="25" height="40" opacity="0.8">
+                  <use xlink:href="#temperature" />
+                </svg>
                 <h1 class="card-title">Temperature</h1>
                 <p class="card-text">-</p>
-                <h2 class="card-title">C</h2>
+                <h2 class="card-title">&deg;C</h2>
               </div>
             </div>
           </div>
         </div>
-        <div id="status"></div>
-        {% comment %}
-        <div id="dataForLast7Days"></div>
-        {% endcomment %}
 
-        <div style="width: 80%; margin: 0 auto">
-          <canvas id="myChart"></canvas>
+        <div class="container-fluid py-3">
+          <div class="row rounded-5" style="background-color: #b8bcbf">
+            <!-- Grafik -->
+            <div class="container-fluid">
+              <div class="status col-12 mb-3 mt-2 text-center" id="status"></div>
+              <canvas class="col-12 mb-0 text-center" id="myChart"></canvas>
+            </div>
+            <!-- Total Today -->
+            <div class="col-md-6 mt-3 mb-3">
+              <div class="card-total">
+                <div class="card-body">
+                  <h5 class="card-title mb-2">Total Today</h5>
+                  <p>
+                    <span id="totalWaktuOnlineHours"></span>
+                    <span id="totalWaktuOnlineMinutes"></span>
+                  </p>
+                  <p>
+                    <span id="totalWaktuOfflineHours"></span>
+                    <span id="totalWaktuOfflineMinutes"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Total Last Week -->
+            <div class="col-md-6 mt-3 mb-3">
+              <div class="card-total">
+                <div class="card-body">
+                  <h5 class="card-title mb-2">Total Last Week</h5>
+                  <p>Online: <span id="totalOnlineWeek"></span></p>
+                  <p>Offline: <span id="totalOfflineWeek"></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <script>
           // Data untuk grafik
@@ -149,28 +297,26 @@
             previousDate.setDate(today.getDate() - i);
             labels.unshift(previousDate.toISOString().split("T")[0]); // Tambahkan tanggal 7 hari terakhir
           }
-
           const data = {
             labels: labels,
             datasets: [
               {
                 label: "Online",
                 data: [], // Ganti dengan data online (8 nilai, 1 untuk setiap tanggal)
-                backgroundColor: "rgba(0, 128, 0, 0.2",
-                borderColor: "rgb(0, 128, 0)",
+                backgroundColor: "rgb(42, 65, 80)",
+                borderColor: "rgb(42, 65, 80)",
                 borderWidth: 1,
               },
               {
                 label: "Offline",
                 data: [], // Ganti dengan data offline (8 nilai, 1 untuk setiap tanggal)
-                backgroundColor: "rgba(255, 0, 0, 0.2",
-                borderColor: "rgb(255, 0, 0)",
+                backgroundColor: "rgb(96, 112, 122)",
+                borderColor: "rgb(96, 112, 122)",
                 borderWidth: 1,
               },
             ],
           };
 
-          // Konfigurasi grafik
           const config = {
             type: "bar",
             data: data,
@@ -178,6 +324,16 @@
               scales: {
                 y: {
                   beginAtZero: true,
+                  title: {
+                    display: true,
+                    text: "Time (on minutes)", // Judul sumbu Y
+                  },
+                },
+                x: {
+                  title: {
+                    display: true,
+                    text: "Date (yyyy-mm-dd)", // Judul sumbu X
+                  },
                 },
               },
             },
@@ -190,7 +346,6 @@
             fetch("/get-data-minutes/") // Ganti dengan URL yang sesuai
               .then((response) => response.json())
               .then((data) => {
-                // Mengisi data dalam grafik berdasarkan data yang diterima
                 myChart.data.labels = data.labels;
                 myChart.data.datasets[0].data = data.online;
                 myChart.data.datasets[1].data = data.offline;
@@ -205,13 +360,13 @@
         </script>
       </div>
     </div>
-
-    <!-- Footer Full Width -->
-    <a type="button" class="btn btn-light rounded-pill d-flex justify-content-center align-items-center fs-4 fw-bold m-2 px-3" href="{% url 'graph_app:graph'%}">Graph</a>
     <!-- Footer End Here -->
     <!-- Content End Here -->
 
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   </body>
 </html>

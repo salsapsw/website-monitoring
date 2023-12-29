@@ -1,12 +1,12 @@
-body {
+/* body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
   background-color: #ffffff;
-}
+} */
 
-html {
+/* html {
   height: -webkit-fill-available;
-}
+} */
 
 main {
   height: 100vh;

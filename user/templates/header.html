@@ -45,58 +45,83 @@
 
 <!-- Content Start Here -->
 <!-- Header Full Width -->
+<style>
+  /* Custom style to center the dropdown */
+  .dropdown-menu-center {
+      transform: translateX(-50%);
+      left: 50% !important;
+  }
+</style>
 <header>
-  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
-    <!-- Logo "Home" -->
-    <a class="navbar-brand ms-2" href="{% url 'dashboard_app:dashboard' %}">
-      <svg width="30" height="30">
-        <use xlink:href="#Home" />
-      </svg>
-    </a>
-    <!-- Dropdown Gambar Setting -->
-    <div class="nav-item dropdown ms-2">
-      <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <!-- Logo "Home" -->
+      <a class="navbar-brand ms-4" href="{% url 'dashboard_app:dashboard' %}">
         <svg width="30" height="30">
-          <use xlink:href="#Setting" />
+          <use xlink:href="#Home" />
         </svg>
       </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdownSetting">
-        <!-- Baris Members -->
-        <a class="dropdown-item" href="{% url 'setting_app:members' %}"
-          >Members</a
-        >
-        <div class="dropdown-divider"></div>
-        <!-- Garis pemisah -->
-        <!-- Baris Monitorings -->
-        <a class="dropdown-item" href="{% url 'setting_app:monitoring' %}"
-          >Monitorings</a
-        >
+  
+      <!-- Ikon "Graph" -->
+      <a class="navbar-brand ms-2 mt-2" href="{% url 'graph_app:graph' %}">
+        <svg width="30" height="30">
+          <use xlink:href="#graph" />
+        </svg>
+      </a>
+      
+      <!-- Dropdown Gambar Setting -->
+      <div class="nav-item dropdown">
+        <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
+          <svg width="30" height="30">
+            <use xlink:href="#Setting" />
+          </svg>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownSetting">
+          <!-- Baris Members -->
+          <a class="dropdown-item" href="{% url 'setting_app:members'%}">Members</a>
+          <div class="dropdown-divider"></div>
+          <!-- Baris Monitorings -->
+          <a class="dropdown-item" href="{% url 'setting_app:monitoring'%}">Monitorings</a>
+        </div>
       </div>
-    </div>
-
-    <!-- Tanggal dan Jam Real-Time -->
-    <div class="navbar-center-content mx-auto">
-      <span id="real-time-clock"></span>
-    </div>
-
-    <!-- Dropdown Gambar Pengguna -->
-    <div class="nav-item dropdown mr-auto">
-      <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
-        <svg width="30" height="30">
-          <use xlink:href="#User" />
-        </svg>
-      </a>
-      <div
-        class="dropdown-menu dropdown-menu-end"
-        aria-labelledby="navbarDropdownUser"
-      >
-        <!-- Baris Profil -->
-        <a class="dropdown-item" href="{% url 'user_app:profile' %}">Profil</a>
-        <div class="dropdown-divider"></div>
-        <!-- Garis pemisah -->
-        <!-- Baris Logout -->
-        <a class="dropdown-item" href="{% url 'user_app:login' %}">Logout</a>
+      
+      <!-- Toggler/collapsible Button -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- Navbar links -->
+      <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+  
+        <!-- Tanggal dan Jam Real-Time -->
+        <div class="navbar-center-content mx-auto">
+          <span id="real-time-clock"></span>
+        </div>
+  
+        <!-- Dropdown Gambar Pengguna -->
+        <div class="nav-item dropdown">
+          Hi, {{user}}
+          {% if request.user.profile_picture %}
+          <a class="navbar-brand text-center" href="#" data-bs-toggle="dropdown">
+            <img src="{{ request.user.profile_picture.url }}" alt="{{ request.user.username }}'s profile picture" class="img-thumbnail" width="30" height="30" />
+          </a>
+          {% else %}
+          <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
+            <svg width="30" height="30">
+              <use xlink:href="#User" />
+            </svg>
+          </a>
+          {% endif %}
+          <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdownUser">
+            <!-- Baris Profil -->
+            <a class="dropdown-item" href="{% url 'profil_app:profil'%}">Profil</a>
+            <div class="dropdown-divider"></div>
+            <!-- Baris Logout -->
+            <a class="dropdown-item" href="{% url 'user_app:logout'%}">Logout</a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
+  
 </header>

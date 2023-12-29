@@ -31,27 +31,28 @@
 
 <!-- Content Start Here -->
 <!-- Header Full Width -->
-<header>
-    <nav class="navbar left-icon navbar-expand-lg navbar-light navbar-custom">
-        <!-- Logo "Home" -->
-        <div>
-            <a class="navbar-brand ms-4" href="{% url 'graph_app:graph' %}" style="color: white">
-                <svg width="30" height="25">
-          <use xlink:href="#graph" />
-        </svg> GRAPHIC
-            </a>
-        </div>
-        <!-- <div class="navbar-center-content mx-auto">
-            <span id="real-time-clock"></span>
-        </div> -->
 
-        <!--  Gambar Pengguna -->
-        <div class="right-icon nav-item mr-auto">
-            <a class="navbar-brand" href="{% url 'dashboard_app:dashboard' %}">
-                <svg width="30" height="30">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+
+      <a
+        class="navbar-brand ms-4"
+        href="{% url 'graph_app:graph' %}"
+        style="color: white"
+      >
+        <svg width="30" height="25">
+          <use xlink:href="#graph" />
+        </svg>
+        GRAPHIC
+      </a>
+
+    <div class="navbar-icon position-absolute top-2 end-0">
+      <a class="navbar-brand" href="{% url 'dashboard_app:dashboard' %}">
+        <svg width="30" height="30">
           <use xlink:href="#Home" />
         </svg>
-            </a>
-        </div>
-    </nav>
+      </a>
+    </div>
+
+  </nav>
 </header>

@@ -1,76 +1,55 @@
-"""
-Module: monitoring.views
-
-This module contains Django view functions related to the monitoring functionality.
-
-Functions:
-- monitoring(request): Renders the monitoring page.
-- get_monitoring_data(request): Retrieves monitoring-related data from the database and returns it as a JSON response.
-- update_monitoring_data(request): Handles updating monitoring-related data in the database based on POST requests.
-- save_to_database(data): Updates monitoring-related data in the database based on input JSON data.
-- manual_monitoring(switches): Performs manual monitoring control based on the provided switch settings.
-"""
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 import json
 from .models import (
     MonitoringUpperAndLower,
 )
+import paho.mqtt.client as mqtt
+import ssl
+
+client = mqtt.Client()
+
+# Konfigurasi TLS jika diperlukan (pastikan Anda memiliki sertifikat TLS)
+sslContext = ssl.create_default_context()
+client.tls_set_context(sslContext)
+
+# Konfigurasi otentikasi jika diperlukan (ganti dengan informasi otentikasi Anda)
+client.username_pw_set(username="RamaPMPD", password="Kerasakti123")
+
+# Hubungkan ke broker HiveMQ (ganti dengan alamat host dan port HiveMQ yang sesuai)
+client.connect("b5208bedc9794c2397ead6f7870bb494.s1.eu.hivemq.cloud", port=8883)
 
 # Create your views here.
 
 
 def monitoring(request):
-    """
-    Renders the monitoring page.
-
-    Parameters:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        HttpResponse: The rendered monitoring page.
-    """
     return render(request, "monitoring.html")
 
 
 def get_monitoring_data(request):
-    """
-    Retrieves monitoring-related data from the database and returns it as a JSON response.
-
-    Parameters:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        JsonResponse: JSON response containing monitoring-related data.
-    """
-    # Get the last row in the SettingMode database (eventhough there is only one row of data :D)
-
-    # Get all row in the monitoringTargetAndTolerance, monitoringSwitches, and WateringSchedule database
     upper_and_lower = MonitoringUpperAndLower.objects.order_by("pk")[0]
 
     context = {
         "upperAndLower": {
-            "vibration-upper": upper_and_lower.vibration_upper,
-            "vibration-lower": upper_and_lower.vibration_lower,
+            "vibration-X-upper": upper_and_lower.vibration_X_upper,
+            "vibration-X-lower": upper_and_lower.vibration_X_lower,
+            "vibration-Y-upper": upper_and_lower.vibration_Y_upper,
+            "vibration-Y-lower": upper_and_lower.vibration_Y_lower,
+            "vibration-Z-upper": upper_and_lower.vibration_Z_upper,
+            "vibration-Z-lower": upper_and_lower.vibration_Z_lower,
             "current-upper": upper_and_lower.current_upper,
             "current-lower": upper_and_lower.current_lower,
             "temperature-upper": upper_and_lower.temperature_upper,
             "temperature-lower": upper_and_lower.temperature_lower,
+            "cal-vib-x": upper_and_lower.cal_vibration_X,
+            "cal-vib-y": upper_and_lower.cal_vibration_Y,
+            "cal-vib-z": upper_and_lower.cal_vibration_Z,
         },
     }
     return JsonResponse(context)
 
 
 def update_monitoring_data(request):
-    """
-    Handles updating monitoring-related data in the database based on POST requests.
-
-    Parameters:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        JsonResponse: JSON response confirming the update.
-    """
     if request.method == "POST":
         try:
             data = json.loads(request.body)
@@ -104,3 +83,29 @@ def save_to_database(data):
         upper_and_lower.save()
     except:
         print("Error saving data!")
+
+
+def update_calibrations(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            client.publish(topic="offset_x", payload=data["calibration"]["cal_vibration_X"])
+            client.publish(topic="offset_y", payload=data["calibration"]["cal_vibration_Y"])
+            client.publish(topic="offset_z", payload=data["calibration"]["cal_vibration_Z"])
+            update_calibrations_in_database(data)
+            print(data)
+            return JsonResponse({"message": "Calibrations updated successfully"})
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON data"}, status=400)
+    else:
+        return HttpResponse(status=405)
+
+def update_calibrations_in_database(data):
+    upper_and_lower = MonitoringUpperAndLower.objects.order_by("pk")[0]
+    try:
+        upper_and_lower.cal_vibration_X = data["calibration"]["cal_vibration_X"]
+        upper_and_lower.cal_vibration_Y = data["calibration"]["cal_vibration_Y"]
+        upper_and_lower.cal_vibration_Z = data["calibration"]["cal_vibration_Z"]
+        upper_and_lower.save()
+    except Exception as e:
+        print(f"Error updating calibrations: {e}")

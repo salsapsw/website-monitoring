@@ -1,14 +1,36 @@
 //all variables are stored here
-const vibrationPlusMinBtn = {
+const vibrationXPlusMinBtn = {
   upper: {
-    min: document.getElementById("vibration-upper-min"),
-    plus: document.getElementById("vibration-upper-plus"),
+    min: document.getElementById("vibration-X-upper-min"),
+    plus: document.getElementById("vibration-X-upper-plus"),
   },
   lower: {
-    min: document.getElementById("vibration-lower-min"),
-    plus: document.getElementById("vibration-lower-plus"),
+    min: document.getElementById("vibration-X-lower-min"),
+    plus: document.getElementById("vibration-X-lower-plus"),
   },
 };
+const vibrationYPlusMinBtn = {
+  upper: {
+    min: document.getElementById("vibration-Y-upper-min"),
+    plus: document.getElementById("vibration-Y-upper-plus"),
+  },
+  lower: {
+    min: document.getElementById("vibration-Y-lower-min"),
+    plus: document.getElementById("vibration-Y-lower-plus"),
+  },
+};
+
+const vibrationZPlusMinBtn = {
+  upper: {
+    min: document.getElementById("vibration-Z-upper-min"),
+    plus: document.getElementById("vibration-Z-upper-plus"),
+  },
+  lower: {
+    min: document.getElementById("vibration-Z-lower-min"),
+    plus: document.getElementById("vibration-Z-lower-plus"),
+  },
+};
+
 const currentPlusMinBtn = {
   upper: {
     min: document.getElementById("current-upper-min"),
@@ -30,12 +52,19 @@ const temperaturePlusMinBtn = {
   },
 };
 
-const vibrationUpper = document.getElementById("vibration-upper");
-const vibrationLower = document.getElementById("vibration-lower");
+const vibrationXUpper = document.getElementById("vibration-X-upper");
+const vibrationXLower = document.getElementById("vibration-X-lower");
+const vibrationYUpper = document.getElementById("vibration-Y-upper");
+const vibrationYLower = document.getElementById("vibration-Y-lower");
+const vibrationZUpper = document.getElementById("vibration-Z-upper");
+const vibrationZLower = document.getElementById("vibration-Z-lower");
 const currentUpper = document.getElementById("current-upper");
 const currentLower = document.getElementById("current-lower");
 const temperatureUpper = document.getElementById("temperature-upper");
 const temperatureLower = document.getElementById("temperature-lower");
+const calVibX = document.getElementById("cal-vib-x");
+const calVibY = document.getElementById("cal-vib-y");
+const calVibZ = document.getElementById("cal-vib-z");
 
 getMonitoringData();
 
@@ -43,19 +72,49 @@ getMonitoringData();
 function handleClickPlusMin(event) {
   const clickedId = event.currentTarget.id;
 
-  function updateVibrationUpper() {
-    vibrationUpper.textContent = clickedId.startsWith("vibration-upper")
+  function updateVibrationXUpper() {
+    vibrationXUpper.textContent = clickedId.startsWith("vibration-X-upper")
       ? clickedId.endsWith("plus")
-        ? (parseFloat(vibrationUpper.textContent) + 0.5).toFixed(1)
-        : (parseFloat(vibrationUpper.textContent) - 0.5).toFixed(1)
-      : parseFloat(vibrationUpper.textContent);
+        ? (parseFloat(vibrationXUpper.textContent) + 0.1).toFixed(2)
+        : (parseFloat(vibrationXUpper.textContent) - 0.1).toFixed(2)
+      : parseFloat(vibrationXUpper.textContent);
   }
-  function updateVibrationLower() {
-    vibrationLower.textContent = clickedId.startsWith("vibration-lower")
+  function updateVibrationXLower() {
+    vibrationXLower.textContent = clickedId.startsWith("vibration-X-lower")
       ? clickedId.endsWith("plus")
-        ? (parseFloat(vibrationLower.textContent) + 0.5).toFixed(1)
-        : (parseFloat(vibrationLower.textContent) - 0.5).toFixed(1)
-      : parseFloat(vibrationLower.textContent);
+        ? (parseFloat(vibrationXLower.textContent) + 0.1).toFixed(2)
+        : (parseFloat(vibrationXLower.textContent) - 0.1).toFixed(2)
+      : parseFloat(vibrationXLower.textContent);
+  }
+
+  function updateVibrationYUpper() {
+    vibrationYUpper.textContent = clickedId.startsWith("vibration-Y-upper")
+      ? clickedId.endsWith("plus")
+        ? (parseFloat(vibrationYUpper.textContent) + 0.1).toFixed(2)
+        : (parseFloat(vibrationYUpper.textContent) - 0.1).toFixed(2)
+      : parseFloat(vibrationYUpper.textContent);
+  }
+  function updateVibrationYLower() {
+    vibrationYLower.textContent = clickedId.startsWith("vibration-Y-lower")
+      ? clickedId.endsWith("plus")
+        ? (parseFloat(vibrationYLower.textContent) + 0.1).toFixed(2)
+        : (parseFloat(vibrationYLower.textContent) - 0.1).toFixed(2)
+      : parseFloat(vibrationYLower.textContent);
+  }
+
+  function updateVibrationZUpper() {
+    vibrationZUpper.textContent = clickedId.startsWith("vibration-Z-upper")
+      ? clickedId.endsWith("plus")
+        ? (parseFloat(vibrationZUpper.textContent) + 0.1).toFixed(1)
+        : (parseFloat(vibrationZUpper.textContent) - 0.1).toFixed(1)
+      : parseFloat(vibrationZUpper.textContent);
+  }
+  function updateVibrationZLower() {
+    vibrationZLower.textContent = clickedId.startsWith("vibration-Z-lower")
+      ? clickedId.endsWith("plus")
+        ? (parseFloat(vibrationZLower.textContent) + 0.1).toFixed(1)
+        : (parseFloat(vibrationZLower.textContent) - 0.1).toFixed(1)
+      : parseFloat(vibrationZLower.textContent);
   }
 
   function updateCurrentUpper() {
@@ -89,8 +148,12 @@ function handleClickPlusMin(event) {
         : (parseFloat(temperatureLower.textContent) - 0.5).toFixed(1)
       : parseFloat(temperatureLower.textContent);
   }
-  updateVibrationUpper();
-  updateVibrationLower();
+  updateVibrationXUpper();
+  updateVibrationXLower();
+  updateVibrationYUpper();
+  updateVibrationYLower();
+  updateVibrationZUpper();
+  updateVibrationZLower();
   updateCurrentUpper();
   updateCurrentLower();
   updateTemperatureUpper();
@@ -125,9 +188,7 @@ async function updateData() {
 
   // Get the csrfToken (THIS IS IMPORTANT! DO NOT DELETE!)
   function getCookie(name) {
-    const cookieValue = document.cookie.match(
-      "(^|;)\\s*" + name + "\\s*=\\s*([^;]+)"
-    );
+    const cookieValue = document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)");
     return cookieValue ? cookieValue.pop() : "";
   }
 
@@ -142,12 +203,50 @@ async function updateData() {
       },
       body: JSON.stringify({
         upperAndLower: {
-          vibration_upper: vibrationUpper.textContent,
-          vibration_lower: vibrationLower.textContent,
+          vibration_X_upper: vibrationXUpper.textContent,
+          vibration_X_lower: vibrationXLower.textContent,
+          vibration_Y_upper: vibrationYUpper.textContent,
+          vibration_Y_lower: vibrationYLower.textContent,
+          vibration_Z_upper: vibrationZUpper.textContent,
+          vibration_Z_lower: vibrationZLower.textContent,
           current_upper: currentUpper.textContent,
           current_lower: currentLower.textContent,
           temperature_upper: temperatureUpper.textContent,
           temperature_lower: temperatureLower.textContent,
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not OK");
+    }
+
+    const responseData = await response.json();
+    // Handle the response data if needed
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function handleUpdateCalibration() {
+  function getCookie(name) {
+    const cookieValue = document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)");
+    return cookieValue ? cookieValue.pop() : "";
+  }
+
+  const csrfToken = getCookie("csrftoken");
+  try {
+    const response = await fetch("post-calibrasi/", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
+      },
+      body: JSON.stringify({
+        calibration: {
+          cal_vibration_X: calVibX.textContent,
+          cal_vibration_Y: calVibY.textContent,
+          cal_vibration_Z: calVibZ.textContent,
         },
       }),
     });

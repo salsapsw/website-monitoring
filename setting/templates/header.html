@@ -1,11 +1,7 @@
 <!-- All svg's are stored here -->
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
   <!--Logo Home-->
-  <symbol
-    xmlns="http://www.w3.org/2000/svg"
-    id="Home"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-  >
+  <symbol xmlns="http://www.w3.org/2000/svg" id="Home" xmlns:xlink="http://www.w3.org/1999/xlink">
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
@@ -14,11 +10,7 @@
     />
   </symbol>
   <!--Logo Setting-->
-  <symbol
-    xmlns="http://www.w3.o =rg/2000/svg"
-    id="Setting"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-  >
+  <symbol xmlns="http://www.w3.org/2000/svg" id="Setting" xmlns:xlink="http://www.w3.org/1999/xlink">
     <path d="m0 0h24v24h-24z" fill="none" />
     <path
       fill="white"
@@ -26,35 +18,50 @@
     />
   </symbol>
   <!--Logo User-->
-  <symbol
-    xmlns="http://www.w3.org/2000/svg"
-    id="User"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-  >
+  <symbol xmlns="http://www.w3.org/2000/svg" id="User" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g fill="#fff">
-      <path
-        d="m12 12c2.7614 0 5-2.23858 5-5s-2.2386-5-5-5c-2.76142 0-5 2.23858-5 5s2.23858 5 5 5z"
-      />
-      <path
-        d="m12.0002 14.5c-5.01004 0-9.09004 3.36-9.09004 7.5 0 .28.22.5.5.5h17.18004c.28 0 .5-.22.5-.5 0-4.14-4.08-7.5-9.09-7.5z"
-      />
+      <path d="m12 12c2.7614 0 5-2.23858 5-5s-2.2386-5-5-5c-2.76142 0-5 2.23858-5 5s2.23858 5 5 5z" />
+      <path d="m12.0002 14.5c-5.01004 0-9.09004 3.36-9.09004 7.5 0 .28.22.5.5.5h17.18004c.28 0 .5-.22.5-.5 0-4.14-4.08-7.5-9.09-7.5z" />
     </g>
+  </symbol>
+
+  <!-- logo graph  -->
+  <symbol xmlns="http://www.w3.org/2000/svg" id="graph" fill="white">
+    <path
+      fill="none"
+      stroke="white"
+      stroke-width="2"
+      fill-rule="evenodd"
+      d="M0 0h1v15h15v1H0V0Zm10 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4.9l-3.613 4.417a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61L13.445 4H10.5a.5.5 0 0 1-.5-.5Z"
+    />
   </symbol>
 </svg>
 <!-- The end of stored svgs -->
-
-<!-- Content Start Here -->
 <!-- Header Full Width -->
+<style>
+  /* Custom style to center the dropdown */
+  .dropdown-menu-center {
+      transform: translateX(-50%);
+      left: 50% !important;
+  }
+</style>
 <header>
-  <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <!-- Logo "Home" -->
-    <a class="navbar-brand ms-2" href="{% url 'dashboard_app:dashboard' %}">
+    <a class="navbar-brand ms-4" href="{% url 'dashboard_app:dashboard' %}">
       <svg width="30" height="30">
         <use xlink:href="#Home" />
       </svg>
     </a>
+
+    <!-- Ikon "Graph" -->
+    <a class="navbar-brand ms-2 mt-2" href="{% url 'graph_app:graph' %}">
+      <svg width="30" height="30">
+        <use xlink:href="#graph" />
+      </svg>
+    </a>
     <!-- Dropdown Gambar Setting -->
-    <div class="nav-item dropdown ms-2">
+    <div class="nav-item dropdown">
       <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
         <svg width="30" height="30">
           <use xlink:href="#Setting" />
@@ -62,40 +69,44 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdownSetting">
         <!-- Baris Members -->
-        <a class="dropdown-item" href="{% url 'setting_app:members' %}"
-          >Members</a
-        >
+        <a class="dropdown-item" href="{% url 'setting_app:members'%}">Members</a>
         <div class="dropdown-divider"></div>
-        <!-- Garis pemisah -->
         <!-- Baris Monitorings -->
-        <a class="dropdown-item" href="{% url 'setting_app:monitoring' %}"
-          >Monitorings</a
-        >
+        <a class="dropdown-item" href="{% url 'setting_app:monitoring'%}">Monitorings</a>
       </div>
     </div>
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <!-- Tanggal dan Jam Real-Time -->
-    <div class="navbar-center-content mx-auto">
-      <span id="real-time-clock"></span>
-    </div>
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+      <!-- Tanggal dan Jam Real-Time -->
+      <div class="navbar-center-content mx-auto">
+        <span id="real-time-clock"></span>
+      </div>
 
-    <!-- Dropdown Gambar Pengguna -->
-    <div class="nav-item dropdown mr-auto">
-      <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
-        <svg width="30" height="30">
-          <use xlink:href="#User" />
-        </svg>
-      </a>
-      <div
-        class="dropdown-menu dropdown-menu-end"
-        aria-labelledby="navbarDropdownUser"
-      >
-        <!-- Baris Profil -->
-        <a class="dropdown-item" href="#">Profil</a>
-        <div class="dropdown-divider"></div>
-        <!-- Garis pemisah -->
-        <!-- Baris Logout -->
-        <a class="dropdown-item" href="{% url 'user_app:login' %}">Logout</a>
+      <!-- Dropdown Gambar Pengguna -->
+      <div class="nav-item dropdown">
+        Hi, {{user}} {% if request.user.profile_picture %}
+        <a class="navbar-brand text-center" href="#" data-bs-toggle="dropdown">
+          <img src="{{ request.user.profile_picture.url }}" alt="{{ request.user.username }}'s profile picture" class="img-thumbnail" width="30" height="30" />
+        </a>
+        {% else %}
+        <a class="navbar-brand" href="#" data-bs-toggle="dropdown">
+          <svg width="30" height="30">
+            <use xlink:href="#User" />
+          </svg>
+        </a>
+        {% endif %}
+        <div class="dropdown-menu dropdown-menu-center" aria-labelledby="navbarDropdownUser">
+          <!-- Baris Profil -->
+          <a class="dropdown-item" href="{% url 'profil_app:profil'%}">Profil</a>
+          <div class="dropdown-divider"></div>
+          <!-- Baris Logout -->
+          <a class="dropdown-item" href="{% url 'user_app:logout'%}">Logout</a>
+        </div>
       </div>
     </div>
   </nav>

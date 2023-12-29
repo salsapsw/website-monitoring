@@ -16,7 +16,8 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -28,6 +29,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'pmpd@gmail.com'
+EMAIL_HOST_PASSWORD = 'pmpd0821'
+DEFAULT_FROM_EMAIL = 'noreply.pmpd@gmail.com'
 
 # Application definition
 
@@ -41,7 +50,9 @@ INSTALLED_APPS = [
     'dashboard',
     'setting',
     'graph',
-    'user'
+    'user',
+    'profil',
+    "core.config.InastekConfig",
 ]
 
 MIDDLEWARE = [
@@ -59,7 +70,7 @@ ROOT_URLCONF = 'suhu.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,7 +125,7 @@ TIME_ZONE = 'Asia/Jakarta'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

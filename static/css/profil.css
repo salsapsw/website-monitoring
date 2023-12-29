@@ -1,0 +1,109 @@
+.add-profile-icon {
+  font-size: 24px;
+  background-color: #ddd;
+  border-radius: 50%;
+  display: flex;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+body {
+  font-family: "Arbutus Slab";
+  background-color: hsl(0, 0%, 87%);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 70%;
+  width: 70%;
+  margin: 50px auto 0;
+  background-color: #60707a;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  border-bottom: 1px solid #fff;
+  display: inline-flex;
+  color: #fff;
+}
+
+h2,
+h3 {
+  color: hsl(0, 0%, 87%);
+  text-align: center;
+}
+
+h4 {
+  color: hsl(0, 0%, 87%);
+}
+
+p {
+  color: hsl(0, 0%, 87%);
+  text-align: left;
+}
+
+.profile-info {
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.profile-image {
+  display: inline-block;
+}
+
+.profile-details {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.profile-details p {
+  margin: 8px 0;
+  color: hsl(0, 0%, 87%);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: hsl(0, 0%, 87%);
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #2a4150;
+  color: hsl(0, 0%, 87%);
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #2a4150;
+}
+
+.form-section {
+  margin-bottom: 10px;
+  color: hsl(0, 0%, 87%);
+}
+
+#id_profile_picture-clear_id,
+#id_profile_picture-current_id {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}

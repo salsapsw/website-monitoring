@@ -1,0 +1,66 @@
+body {
+  background-color: #dddddd;
+}
+
+.combined-text {
+  font-size: 46px;
+  font-family: Roboto;
+  font-weight: 150;
+  color: #2a4150;
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 50px;
+}
+
+.combined-text .divider {
+  height: 180px; /* Add 'px' unit */
+  margin: 0 20px; /* Adjusted margin */
+}
+
+.combined-text .divider-members {
+  margin: 0 50px; /* Adjusted margin */
+}
+
+/* Responsive Styles using Media Queries */
+@media (max-width: 991.98px) {
+  .combined-text {
+    font-size: 36px;
+    margin-left: 0;
+  }
+
+  .combined-text .divider {
+    height: 120px; /* Adjusted height for smaller screens */
+    margin: 0 10px; /* Adjusted margin */
+  }
+
+  .combined-text .divider-members {
+    margin: 0 30px; /* Adjusted margin */
+  }
+}
+
+@media (max-width: 767.98px) {
+  .combined-text {
+    font-size: 24px;
+    margin: 0;
+  }
+
+  .combined-text .divider {
+    height: 80px; /* Adjusted height for even smaller screens */
+    margin: 0 5px; /* Adjusted margin */
+  }
+
+  .combined-text .divider-members {
+    margin: 0 20px; /* Adjusted margin */
+  }
+}
+
+
+table.table thead {
+  background-color: #2a4150; /* Dark blue background */
+  color: #fff; /* White text */
+}
+
+.custom-thead {
+  background-color: #2a4150;
+  color: #fff;
+}

@@ -1,0 +1,14 @@
+<form method="POST" id="editRoleForm">
+  {% csrf_token %} {{ form.as_p }}
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">Close</button>
+    <input class="btn btn-primary" type="submit" value="Save changes" />
+  </div>
+</form>
+
+<script>
+  function closeModal() {
+    window.location.href = '{% url "setting_app:members" %}';
+  }
+</script>

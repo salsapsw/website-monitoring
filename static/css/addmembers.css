@@ -1,0 +1,10 @@
+.form-container {
+  background-color: hsl(0, 0%, 85%); /* Warna latar belakang form */
+  border-radius: 10px; /* Sudut bulat form */
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2); /* Bayangan form */
+  padding: 20px; /* Ruang dalam form */
+}
+
+.logo-container img {
+  margin-bottom: 10px; /* Jarak antara gambar dan form */
+}

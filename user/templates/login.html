@@ -1,28 +1,57 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="utf-8" />
-    <title>Predictive Maintenance Product Development</title>
     {% load static %}
+    <title>Predictive Maintenance Product Development</title>
+    <link rel="icon" href="{% static 'img/logo-bg.png' %}" type="image/icon" />
+
+    <!-- Add Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/Login.css' %}" />
-  </head>
-  <body>
+
+    <!-- Add responsive meta tag for viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
     <div class="center">
-      <h1>Login</h1>
-      <form method="post">
-        <div class="txt_field">
-          <input type="text" required />
-          <span></span>
-          <label>Username</label>
+        <div class="logo-container mt-3 text-center">
+            <img class="mt-1" src="{% static 'img/logo inastek.jpg' %}" alt="" width="65" height="60" />
+            <img class="mt-1" src="{% static 'img/logo.png' %}" alt="" width="65" height="67" />
         </div>
-        <div class="txt_field">
-          <input type="password" required />
-          <span></span>
-          <label>Password</label>
-        </div>
-        <input type="submit" value="Login" />
-      </form>
+        <h1 class="text-center">Login</h1>
+
+        <form name="LoginForm" action="{% url 'user_app:login' %}" method="post">
+            {% csrf_token %} {% if messages %}
+            <p></p>
+            <div class="messages">
+                {% for message in messages %}
+                <div class="{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="txt_field">
+                <input type="text" class="" id="id_username" name="username" required />
+                <span></span>
+                <label for="id_username">Username</label>
+            </div>
+            <div class="txt_field">
+                
+                <input type="password" class="" id="id_password" name="password" required />
+                <span></span>
+                <label for="id_password">Password</label>
+            </div>
+            {% comment %}
+            <div class="reset-password">
+              <a href="">Forgot Password?</a>
+            </div>
+            {% endcomment %}
+            <input type="submit" class="btn btn-primary" value="Login" />
+        </form>
     </div>
-  </body>
+</body>
+
 </html>

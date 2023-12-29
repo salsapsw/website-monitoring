@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arbutus+Slab" />
+    <title>User Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-ezUGD02DsDSh6NB6EGb2jiZ5kvvqIi9xkpYo+DOxXpGSHl9qDh4OA3ncbbX38S3p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profil.css' %}" />
+  </head>
+  <body>
+    {% include "headerp.html" %} {% block content %}
+    <div class="container" style="width: 100%; overflow-x: auto;">
+      <h1>User Profile</h1>
+      <div class="profile-info">
+        {% if request.user.profile_picture %}
+        <div class="profile-image mx-auto">
+          <img src="{{ request.user.profile_picture.url }}" alt="{{ request.user.username }}'s profile picture" class="img-thumbnail" width="150" height="150" />
+        </div>
+        {% else %}
+        <div class="add-profile-icon">
+          <i class="fas fa-plus"></i>
+        </div>
+        {% endif %}
+      </div>
+      <div class="edit-profile">
+        <h4>Edit Profile</h4>
+
+        <form method="post" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-section">
+            <p>{{ profile_picture_form.profile_picture }}</p>
+            <p></p>
+          </div>
+
+          <div class="form-section">
+            <p>Username : {{ user_edit_form.username }}</p>
+            <p>Email : {{ user_edit_form.email }}</p>
+            <p>Phone : {{ user_edit_form.phone_number }}</p>
+            <p><button type="submit">Save Changes</button></p>
+          </div>
+        </form>
+
+        <form>
+          <div class="form-section">
+            <p>{{ password_form.as_p }} <button type="submit">Save Changes</button></p>
+          </div>
+        </form>
+      </div>
+    </div>
+    {% endblock %}
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="{% static 'js/profil.js' %}"></script>
+  </body>
+</html>
